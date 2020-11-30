@@ -17,7 +17,7 @@ public class joystick : MonoBehaviour
     void Start()
     {
         touch_marker.transform.position = transform.position;
-        ee = new Vector3(10, 0);
+        ee = new Vector3(0, 0);
     }
 
     // Update is called once per frame
@@ -47,7 +47,7 @@ public class joystick : MonoBehaviour
         }
         //если нет касания
         else {
-            player.FireOff();
+            //player.FireOff();
             touch_marker.transform.position += (touch_marker.transform.position - transform.position) * -1 / 30;
         }
         
