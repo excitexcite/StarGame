@@ -67,6 +67,7 @@ public class Player : MonoBehaviour
     // функция для стрельбы
     private void Fire()
     {
+        
         // если нажали на кнопку Fire1, то есть в нашем случае - пробел
         if (Input.GetButtonDown("Fire1"))
         {
@@ -77,6 +78,13 @@ public class Player : MonoBehaviour
         {
             StopCoroutine(firingCoroutine);
         }
+    }
+
+    public void FireOn(){
+        firingCoroutine = StartCoroutine(FireContinuously());
+    }
+    public void FireOff(){
+        StopCoroutine(firingCoroutine);
     }
 
     // метод, который отвечает за движение игрока
@@ -92,6 +100,22 @@ public class Player : MonoBehaviour
         // Mathf.Clamp() возращает значение между min и max; благодаря этому мы никогда не выйдем за границы 
         float newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
         float deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        float newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
+        transform.position = new Vector2(newXPos, newYPos);
+    }
+
+    public void MoveJoys(Vector2 vec)
+    {
+        /*         "дельта", на которую происходит движение в лево/право
+                 Input.GetAxis - использование горизонтальной оси (оси Х) для движения
+                 Time.deltaTime - фича, которая необходима, чтобы движение происходило с одинаковой скоростью как на быстрых
+                 машинах, так и на медленных
+                 Все вышеперечисленное справедливо и для движения по оси У
+        */
+        float deltaX = vec.x * Time.deltaTime * moveSpeed;
+        // Mathf.Clamp() возращает значение между min и max; благодаря этому мы никогда не выйдем за границы 
+        float newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
+        float deltaY = vec.y * Time.deltaTime * moveSpeed;
         float newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
         transform.position = new Vector2(newXPos, newYPos);
     }
