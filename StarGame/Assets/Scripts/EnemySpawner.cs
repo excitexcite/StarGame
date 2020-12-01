@@ -25,9 +25,11 @@ public class EnemySpawner : MonoBehaviour
     // корутин для спавна всех волн
     private IEnumerator SpawnAllWaves()
     {
-        for (int waveIndex = startingWave; waveIndex < waveConfigs.Count; waveIndex++)
+        for (; ; )
         {
             // с помощью индекса-номера волны получили первый WaveConfig для волны врагов
+            int waveIndex = UnityEngine.Random.Range(0, waveConfigs.Count - 1);
+            //Debug.Log("I am " + waveIndex);
             var currentWave = waveConfigs[waveIndex];
             yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
         }
