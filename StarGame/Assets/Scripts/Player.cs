@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] int health = 5000;
     // SerializeField позволяет увидить атрибут приватного поля объекта класса в инспекторе
     // иначе такаая возможность доступна только для публичных полей 
     [SerializeField] float moveSpeed = 10f;
@@ -118,5 +119,25 @@ public class Player : MonoBehaviour
         float deltaY = vec.y * Time.deltaTime * moveSpeed;
         float newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
         transform.position = new Vector2(newXPos, newYPos);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // в игрока будет попадать лазер врага, с ним у нас связан скрипт и соответственно объект DamageDealer
+        DamageDealer damageDealer = collision.gameObject.GetComponent<DamageDealer>();
+        ProcessHit(damageDealer);
+    }
+
+    // функция для обработки попадания по игроку
+    private void ProcessHit(DamageDealer damageDealer)
+    {
+        // уменьшение кол-во здоровья игрока на кол-во урона
+        health -= damageDealer.GetDamage();
+        damageDealer.Hit();
+        // если здоровье меньше нуля, уничтожаем игрока
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
