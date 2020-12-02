@@ -17,6 +17,12 @@ public class Enemy : MonoBehaviour
     // моделька лазера
     [SerializeField] GameObject laserPrefab;
 
+    // объект для связи Material`a с кодом
+    [SerializeField] GameObject deathVFX;
+    // длительность взрыва
+    [SerializeField] float durationOfExplosion = 1f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +82,11 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            // объект для создания эффекта взрыва
+            GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);
+            // эффект длится durationOfExplosion и уничтожается
+            Destroy(explosion, durationOfExplosion);
+
         }
     }
 }
