@@ -49,6 +49,8 @@ public class Player : MonoBehaviour
         Fire();
     }
 
+    public int GetHealth() { return health; }
+
     // фуекция-корутин для стрельбы
     IEnumerator FireContinuously()
     {
@@ -137,7 +139,9 @@ public class Player : MonoBehaviour
         // если здоровье меньше нуля, уничтожаем игрока
         if (health <= 0)
         {
+            FindObjectOfType<Level>().LoadGameOver();
             Destroy(gameObject);
+            FindObjectOfType<joystick>().JoystickDestroy();
         }
     }
 }

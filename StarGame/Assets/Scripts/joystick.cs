@@ -20,6 +20,11 @@ public class joystick : MonoBehaviour
         ee = new Vector3(0, 0);
     }
 
+    public void JoystickDestroy()
+    {
+        Destroy(gameObject);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
