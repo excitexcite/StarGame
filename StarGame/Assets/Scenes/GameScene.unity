@@ -819,12 +819,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9860ae074cfda394aa380e891098f6b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossPeriod: 4
   waveConfigs:
   - {fileID: 11400000, guid: 4239428f011e0ec479be1633b0558774, type: 2}
   - {fileID: 11400000, guid: 8e26d6fd620c2c54ca8e1e4d82d5156a, type: 2}
   - {fileID: 11400000, guid: 3bfdef840fc64a540bb5d835eefc3a82, type: 2}
   - {fileID: 11400000, guid: 186a55cf457ae2243823088b997a612b, type: 2}
   - {fileID: 11400000, guid: f18e27a1f51ea0f4697561a4b202bca5, type: 2}
+  waveBossConfigs:
+  - {fileID: 11400000, guid: 0d8bbb5ad61837646b1e147b7d705d20, type: 2}
+  - {fileID: 11400000, guid: 5caae53bbbf6df646b9f2d46ed7f80a0, type: 2}
   looping: 1
 --- !u!4 &1846148266
 Transform:

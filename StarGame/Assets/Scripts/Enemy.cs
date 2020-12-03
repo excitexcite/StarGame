@@ -82,8 +82,18 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+
             // объект для создания эффекта взрыва
-            GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);
+            GameObject explosion;
+            if (gameObject.tag == "boss"){
+                foreach(Transform child in transform){
+                    explosion = Instantiate(deathVFX, child.position, child.rotation);
+                    Destroy(explosion, durationOfExplosion);
+                }
+            }
+
+            // объект для создания эффекта взрыва
+            explosion = Instantiate(deathVFX, transform.position, transform.rotation);
             // эффект длится durationOfExplosion и уничтожается
             Destroy(explosion, durationOfExplosion);
 

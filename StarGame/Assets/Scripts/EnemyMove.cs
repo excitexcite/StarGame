@@ -57,7 +57,16 @@ public class EnemyMove : MonoBehaviour
         // иначе уничтожаем GameObject
         else
         {
-            Destroy(gameObject);
+            switch (gameObject.tag){
+                case "boss":
+                    break;
+
+                case "Enemy":
+                    Destroy(gameObject);
+                    break;
+
+            }
+            
         }
     }
 }

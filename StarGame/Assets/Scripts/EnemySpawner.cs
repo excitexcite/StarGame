@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public int bossPeriod;
     // список WaveConfig всех путей в нашей игре
     [SerializeField] List<WaveConfig> waveConfigs;
+    [SerializeField] List<WaveConfig> waveBossConfigs;
     // опция зацикливания спауна волн врагов
     [SerializeField] bool looping = false;
     // номер волны, с которой все начнётся
@@ -25,13 +27,36 @@ public class EnemySpawner : MonoBehaviour
     // корутин для спавна всех волн
     private IEnumerator SpawnAllWaves()
     {
-        for (; ; )
+        
+        
+        for (int i = 1, bossCount = 0; ;)
         {
-            // с помощью индекса-номера волны получили первый WaveConfig для волны врагов
-            int waveIndex = UnityEngine.Random.Range(0, waveConfigs.Count - 1);
-            //Debug.Log("I am " + waveIndex);
-            var currentWave = waveConfigs[waveIndex];
-            yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
+
+            GameObject[] boss = GameObject.FindGameObjectsWithTag("boss");
+            if (boss.Length == 0){
+                if (i % bossPeriod != 0){
+                    // с помощью индекса-номера волны получили первый WaveConfig для волны врагов
+                    int waveIndex = UnityEngine.Random.Range(0, waveConfigs.Count - 1);
+                   // Debug.Log("Волна = " + i);
+                    var currentWave = waveConfigs[waveIndex];
+
+                    
+                    yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
+                }
+                else{
+                    //Debug.Log("Запуск босса");
+                    var currentWave = waveBossConfigs[bossCount];
+
+                    bossCount++;
+                    if (bossCount > waveBossConfigs.Count-1) bossCount = 0;
+
+                    
+                    yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
+
+                }
+                i++;
+            }
+            else yield return new WaitForSeconds(1);
         }
     }
 
