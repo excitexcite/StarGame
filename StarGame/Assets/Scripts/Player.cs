@@ -26,6 +26,10 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip shootSFV;
     // громкость звука стрельбы
     [SerializeField] [Range(0, 1)] float shootSoundVolume = 0.1f;
+    // объект для связи аудиоэффекта с кодом
+    [SerializeField] AudioClip bonusSFV;
+    // громкость звука стрельбы
+    [SerializeField] [Range(0, 1)] float bonusSoundVolume = 0.4f;
 
 
     // объект-корутин для управления остановкой стрельбы игрока
@@ -135,11 +139,30 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(newXPos, newYPos);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Pill")
+        {
+
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // в игрока будет попадать лазер врага, с ним у нас связан скрипт и соответственно объект DamageDealer
-        DamageDealer damageDealer = collision.gameObject.GetComponent<DamageDealer>();
-        ProcessHit(damageDealer);
+        if (collision.gameObject.tag == "Pill")
+        {
+            Pill bonus = collision.gameObject.GetComponent<Pill>();
+            health += bonus.GetHealth();
+            bonus.PickUpBonus();
+            AudioSource.PlayClipAtPoint(bonusSFV, Camera.main.transform.position, deathSoundVolume);
+        }
+        else
+        {
+            // в игрока будет попадать лазер врага, с ним у нас связан скрипт и соответственно объект DamageDealer
+            DamageDealer damageDealer = collision.gameObject.GetComponent<DamageDealer>();
+            if (!damageDealer) { return; }
+            ProcessHit(damageDealer);
+        }
     }
 
     // функция для обработки попадания по игроку

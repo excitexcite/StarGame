@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -93,12 +94,25 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Die();
+        }
+    }
 
+    private void RandBonus()
+    {
+        int random = UnityEngine.Random.Range(0, 11);
+        if (random > 8)
+        {
+            //Debug.Log("HERE I AM, FUCKING BONUS!!!");
+            GameObject bonusDrop = GameObject.FindGameObjectWithTag("BonusSpawner");
+            BonusDrop bonus = bonusDrop.GetComponent<BonusDrop>();
+            bonus.SetEnemyPosition(transform);
+            bonus.CreateBonus();
         }
     }
 
     private void Die()
     {
+        RandBonus();
         Destroy(gameObject);
 
         // объект для создания эффекта взрыва
