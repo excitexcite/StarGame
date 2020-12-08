@@ -22,6 +22,15 @@ public class Enemy : MonoBehaviour
     // длительность взрыва
     [SerializeField] float durationOfExplosion = 1f;
 
+    // объект для связи аудиоэффекта с кодом
+    [SerializeField] AudioClip deathSFV;
+    // громкость звука смерти
+    [SerializeField] [Range(0, 1)] float deathSoundVolume = 0.5f;
+    // объект для связи аудиоэффекта с кодом
+    [SerializeField] AudioClip shootSFV;
+    // громкость звука стрельбы
+    [SerializeField] [Range(0, 1)] float shootSoundVolume = 0.1f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +68,8 @@ public class Enemy : MonoBehaviour
             transform.position,
             Quaternion.identity) as GameObject;
         laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -laserSpeed);
+        // создание звука в момент стрыльбы игрока
+        AudioSource.PlayClipAtPoint(shootSFV, Camera.main.transform.position, shootSoundVolume);
     }
 
 
@@ -81,22 +92,32 @@ public class Enemy : MonoBehaviour
         // если здоровье меньше нуля, уничтожаем врага
         if (health <= 0)
         {
-            Destroy(gameObject);
-
-            // объект для создания эффекта взрыва
-            GameObject explosion;
-            if (gameObject.tag == "boss"){
-                foreach(Transform child in transform){
-                    explosion = Instantiate(deathVFX, child.position, child.rotation);
-                    Destroy(explosion, durationOfExplosion);
-                }
-            }
-
-            // объект для создания эффекта взрыва
-            explosion = Instantiate(deathVFX, transform.position, transform.rotation);
-            // эффект длится durationOfExplosion и уничтожается
-            Destroy(explosion, durationOfExplosion);
+            Die();
 
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+
+        // объект для создания эффекта взрыва
+        GameObject explosion;
+        if (gameObject.tag == "boss")
+        {
+            foreach (Transform child in transform)
+            {
+                explosion = Instantiate(deathVFX, child.position, child.rotation);
+                Destroy(explosion, durationOfExplosion);
+            }
+        }
+
+        // объект для создания эффекта взрыва
+        explosion = Instantiate(deathVFX, transform.position, transform.rotation);
+        // эффект длится durationOfExplosion и уничтожается
+        Destroy(explosion, durationOfExplosion);
+        // проигрывает звук в момент уничтожение врага в позиции камеры (чтобы слышать все звуки одинакового)
+        // с громкостью deathSoundVolume
+        AudioSource.PlayClipAtPoint(deathSFV, Camera.main.transform.position, deathSoundVolume);
     }
 }

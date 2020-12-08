@@ -18,6 +18,16 @@ public class Player : MonoBehaviour
     // объект для управления копиями лазера
     [SerializeField] GameObject laserPrefab;
 
+    // объект для связи аудиоэффекта с кодом
+    [SerializeField] AudioClip deathSFV;
+    // громкость звука смерти
+    [SerializeField] [Range(0, 1)] float deathSoundVolume = 0.5f;
+    // объект для связи аудиоэффекта с кодом
+    [SerializeField] AudioClip shootSFV;
+    // громкость звука стрельбы
+    [SerializeField] [Range(0, 1)] float shootSoundVolume = 0.1f;
+
+
     // объект-корутин для управления остановкой стрельбы игрока
     Coroutine firingCoroutine;
     // определили переменные, которые будут хранить точки-границы экрана
@@ -63,6 +73,8 @@ public class Player : MonoBehaviour
             // говорим элементу Rigidbody2D принять в качестве своей скорости вектор Vector2(0, projectileSpeed),
             // где projectileSpeed - скорость движения лазера (изменение координаты У)
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
+            // создание звука в момент стрыльбы игрока
+            AudioSource.PlayClipAtPoint(shootSFV, Camera.main.transform.position, shootSoundVolume);
             yield return new WaitForSeconds(laserFiringPeriod);
         }
     }
@@ -142,6 +154,7 @@ public class Player : MonoBehaviour
             FindObjectOfType<Level>().LoadGameOver();
             Destroy(gameObject);
             FindObjectOfType<joystick>().JoystickDestroy();
+            AudioSource.PlayClipAtPoint(deathSFV, Camera.main.transform.position, deathSoundVolume);
         }
     }
 }

@@ -1020,6 +1020,10 @@ MonoBehaviour:
   laserFiringPeriod: 0.1
   laserPrefab: {fileID: 827377772625099879, guid: 344a6fb2fba985b44ae905fb884b9266,
     type: 3}
+  deathSFV: {fileID: 8300000, guid: d238c8b74768c1d45b68f2ae66a955bf, type: 3}
+  deathSoundVolume: 0.5
+  shootSFV: {fileID: 8300000, guid: 9a96368143feebd409df15c25f5eeb3e, type: 3}
+  shootSoundVolume: 0.1
 --- !u!60 &1884546304
 PolygonCollider2D:
   m_ObjectHideFlags: 0
