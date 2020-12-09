@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
 {
     // здоровье врага
     [SerializeField] float health = 100;
+    // очки за убийство врага
+    [SerializeField] int scoreValue = 150;
     // время между выстрелами
     [SerializeField] float shootTime;
     // минимальное время между выстрелами
@@ -112,6 +114,9 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        // в момент уничтожения врага увеличиваем счёт
+        FindObjectOfType<GameSession>().AddToScore(scoreValue);
+
         RandBonus();
         Destroy(gameObject);
 
