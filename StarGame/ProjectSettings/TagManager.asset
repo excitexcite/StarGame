@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - BonusSpawner
   - Pill
+  - Meteor
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Player
   - PlayerLaser
   - Bonus
-  - 
+  - Meteor
   - 
   - 
   - 

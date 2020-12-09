@@ -156,6 +156,13 @@ public class Player : MonoBehaviour
             bonus.PickUpBonus();
             AudioSource.PlayClipAtPoint(bonusSFV, Camera.main.transform.position, deathSoundVolume);
         }
+        else if (collision.gameObject.tag == "Meteor")
+        {
+            Meteorite meteor = collision.gameObject.GetComponent<Meteorite>();
+            health -= meteor.GetDamage();
+            meteor.DestroyMeteorite();
+            AudioSource.PlayClipAtPoint(bonusSFV, Camera.main.transform.position, deathSoundVolume);
+        }
         else
         {
             // в игрока будет попадать лазер врага, с ним у нас связан скрипт и соответственно объект DamageDealer
