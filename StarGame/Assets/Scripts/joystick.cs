@@ -30,6 +30,7 @@ public class joystick : MonoBehaviour
     {
         //если есть касание
         if (Input.GetMouseButton(0)){
+            
             //player.FireOn();
            Vector3 touch_pos = Input.mousePosition;
 
@@ -57,7 +58,7 @@ public class joystick : MonoBehaviour
         }
         
 
-
+        
         //передать вектор движения игроку
         player.MoveJoys((touch_marker.transform.position - transform.position)/125);
         

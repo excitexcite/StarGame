@@ -31,6 +31,11 @@ public class Level : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+    public void LoadScore()
+    {
+        SceneManager.LoadScene(5);
+    }
+
     public void LoadSettingScene()
     {
         SceneManager.LoadScene(3);

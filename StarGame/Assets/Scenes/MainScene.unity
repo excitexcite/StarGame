@@ -1435,7 +1435,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5811400397077019034}
-        m_MethodName: LoadMainGame
+        m_MethodName: LoadScore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

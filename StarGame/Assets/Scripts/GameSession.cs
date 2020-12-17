@@ -5,11 +5,15 @@ using UnityEngine;
 public class GameSession : MonoBehaviour
 {
     int score = 0;
+
+    
+
     // Awake вызывается до Start`a
     void Awake()
     {
         // Singleton - позволяет использовать один и тот же компонент повторно между сценами
         SetUpSingleton();
+        
     }
 
     private void SetUpSingleton()
@@ -30,6 +34,7 @@ public class GameSession : MonoBehaviour
     // функция-гетер для получения счёта
     public int GetScore()
     {
+        Debug.Log(score);
         return score;
     }
 

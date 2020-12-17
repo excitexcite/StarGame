@@ -125,6 +125,7 @@ public class Player : MonoBehaviour
 
     public void MoveJoys(Vector2 vec)
     {
+        
         /*         "дельта", на которую происходит движение в лево/право
                  Input.GetAxis - использование горизонтальной оси (оси Х) для движения
                  Time.deltaTime - фича, которая необходима, чтобы движение происходило с одинаковой скоростью как на быстрых
@@ -181,6 +182,10 @@ public class Player : MonoBehaviour
         // если здоровье меньше нуля, уничтожаем игрока
         if (health <= 0)
         {
+            SaveControl save = FindObjectOfType<SaveControl>();
+            save.writeRecord(FindObjectOfType<GameSession>().GetScore());
+
+            
             FindObjectOfType<Level>().LoadGameOver();
             Destroy(gameObject);
             FindObjectOfType<joystick>().JoystickDestroy();
