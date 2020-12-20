@@ -59,7 +59,7 @@ public class ScoreControl : MonoBehaviour
             
         }
         else{
-            textError.text = "Введите имя";
+            textError.text = "Input your name";
             Debug.Log(123);
         }
     }
