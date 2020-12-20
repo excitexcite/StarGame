@@ -12,4 +12,4 @@ The main game's purpose is very simple: you are a pilot of a starship that explo
 
 Some new features might be realised soon.
 
-If you have any suggestuon, contact me excitenew@gmail.co,
+If you have any suggestuon, contact me excitenew@gmail.com
