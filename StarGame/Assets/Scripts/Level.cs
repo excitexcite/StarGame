@@ -18,6 +18,7 @@ public class Level : MonoBehaviour
     public void LoadMainGame()
     {
         SceneManager.LoadScene(1);
+        FindObjectOfType<GameSession>().ResetGame();
     }
 
     // функция для загрузки экаран конца игры

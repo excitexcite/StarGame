@@ -22,8 +22,16 @@ public class HealthDisplay : MonoBehaviour
 
     void Update()
     {
-        // при получении урона меняем значение здоровья на экране
-        healthText.text = player.GetHealth().ToString();
+        int health = player.GetHealth();
+        if (health >= 0)
+        {
+            // при получении урона меняем значение здоровья на экране
+            healthText.text = health.ToString();
+        }
+        else
+        {
+            healthText.text = "0";
+        }
     }
 
 }

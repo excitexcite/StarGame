@@ -160,9 +160,7 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.tag == "Meteor")
         {
             Meteorite meteor = collision.gameObject.GetComponent<Meteorite>();
-            health -= meteor.GetDamage();
-            meteor.DestroyMeteorite();
-            AudioSource.PlayClipAtPoint(bonusSFV, Camera.main.transform.position, deathSoundVolume);
+            ProcessMeteorCollision(meteor);
         }
         else
         {
@@ -170,6 +168,17 @@ public class Player : MonoBehaviour
             DamageDealer damageDealer = collision.gameObject.GetComponent<DamageDealer>();
             if (!damageDealer) { return; }
             ProcessHit(damageDealer);
+        }
+    }
+
+    private void ProcessMeteorCollision(Meteorite meteor)
+    {
+        health -= meteor.GetDamage();
+        meteor.DestroyMeteorite();
+        AudioSource.PlayClipAtPoint(bonusSFV, Camera.main.transform.position, deathSoundVolume);
+        if (health <= 0)
+        {
+            Die();
         }
     }
 
@@ -182,14 +191,19 @@ public class Player : MonoBehaviour
         // если здоровье меньше нуля, уничтожаем игрока
         if (health <= 0)
         {
-            SaveControl save = FindObjectOfType<SaveControl>();
-            save.writeRecord(FindObjectOfType<GameSession>().GetScore());
-
-            
-            FindObjectOfType<Level>().LoadGameOver();
-            Destroy(gameObject);
-            FindObjectOfType<joystick>().JoystickDestroy();
-            AudioSource.PlayClipAtPoint(deathSFV, Camera.main.transform.position, deathSoundVolume);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        SaveControl save = FindObjectOfType<SaveControl>();
+        save.writeRecord(FindObjectOfType<GameSession>().GetScore());
+
+
+        FindObjectOfType<Level>().LoadGameOver();
+        Destroy(gameObject);
+        FindObjectOfType<joystick>().JoystickDestroy();
+        AudioSource.PlayClipAtPoint(deathSFV, Camera.main.transform.position, deathSoundVolume);
     }
 }
